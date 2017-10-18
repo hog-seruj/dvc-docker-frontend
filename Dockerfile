@@ -10,7 +10,7 @@ RUN set -ex &&\
   npm install &&\
   apk del --no-cache --purge make g++ python autoconf automake nasm libjpeg-turbo-dev zlib-dev &&\
   ln -s /srv/node_modules/.bin/gulp /usr/bin/gulp &&\
-  rm -rf /root/.npm /root/.config /tmp/npm* /tpm/phantomjs
+  rm -rf /root/.npm /root/.config /tmp/npm* /tmp/phantomjs
 
 COPY docker-entrypoint.sh /usr/bin/
 
