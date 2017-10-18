@@ -6,6 +6,7 @@
   "devDependencies": {},
   "dependencies": {
     "datauri": "1.0.5",
+    "gulp": "3.9.1",
     "gulp-autoprefixer": "3.1.1",
     "gulp-cli": "1.2.2",
     "gulp-combine-mq": "0.4.0",
@@ -19,6 +20,7 @@
     "gulp-load-plugins": "1.5.0",
     "gulp-modernizr": "1.0.0-alpha",
     "gulp-rename": "1.2.2",
+    "gulp-sass": "3.1.0",
     "gulp-stylelint": "3.9.0",
     "gulp-svg-symbols": "2.0.2",
     "gulp-tap": "0.1.3",

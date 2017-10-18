@@ -1,17 +1,20 @@
-FROM mhart/alpine-node:7
+FROM mhart/alpine-node:6
 
 MAINTAINER Sergiy Borodulin
 
-RUN apk add --no-cache make g++ python git
+COPY package.json /srv/package.json
+
+RUN set -ex &&\
+  cd /srv &&\
+  apk add --no-cache git make g++ python autoconf automake nasm libjpeg-turbo-dev zlib-dev &&\
+  npm install &&\
+  apk del --no-cache --purge make g++ python autoconf automake nasm libjpeg-turbo-dev zlib-dev &&\
+  ln -s /srv/node_modules/.bin/gulp /usr/bin/gulp &&\
+  rm -rf /root/.npm /root/.config /tmp/npm* /tpm/phantomjs
+
+COPY docker-entrypoint.sh /usr/bin/
 
 WORKDIR /work
-
-COPY package.json /work/package.json
-
-RUN npm install -g \
-    gulp \
-    gulp-sass
-
-ENTRYPOINT ["/work/node_modules/.bin/gulp"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["gulp"]
