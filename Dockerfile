@@ -1,42 +1,22 @@
-FROM skilldlabs/frontend:latest
+FROM mhart/alpine-node:8
 
 MAINTAINER Sergiy Borodulin
 
-ENV NPM_PACKAGES "bootstrap-sass\
-    breakpoint-sass\
-    browser-sync\
-    chroma-sass\
-    font-awesome\
-    fs\
-    gulp-autoprefixer\
-    gulp-babel\
-    gulp-concat\
-    gulp-cssmin\
-    gulp-if\
-    gulp-imagemin\
-    gulp-jshint\
-    gulp-jsmin\
-    gulp-minify-html\
-    gulp-notify\
-    gulp-plumber\
-    gulp-rename\
-    gulp-sass-glob\
-    gulp-sass-lint\
-    gulp-sourcemaps\
-    gulp-strip-css-comments\
-    gulp-useref\
-    gulp-watch\
-    gulp.spritesmith\
-    js-yaml\
-    jshint\
-    node-sass\
-    path\
-    prompt\
-    readable-stream\
-    slick-carousel\
-    susy"
+COPY package.json /srv/package.json
 
-RUN apk add --no-cache git \
-  && npm install -g $NPM_PACKAGES
+RUN set -ex &&\
+  cd /srv &&\
+  apk add --no-cache git make g++ python autoconf automake nasm libjpeg-turbo-dev zlib-dev &&\
+  npm install &&\
+  apk del --no-cache --purge make g++ python autoconf automake nasm libjpeg-turbo-dev zlib-dev &&\
+  ln -s /srv/node_modules/.bin/gulp /usr/bin/gulp &&\
+  rm -rf /root/.npm /root/.config /tmp/npm* /tmp/phantomjs
 
 COPY docker-entrypoint.sh /usr/bin/
+
+VOLUME /work
+WORKDIR /work
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+CMD ["gulp"]
