@@ -1,6 +1,6 @@
 {
-  "name": "DevCompany theme",
-  "version": "1.0",
+  "name": "devcompany_theme",
+  "version": "5.6.1",
   "description": "Base for Frontend developpers",
   "main": "gulpfile.js",
   "author": "Sergiy Borodulin",
